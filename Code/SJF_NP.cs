@@ -1,14 +1,14 @@
 namespace Schen.Code;
 
-// First Come First Serve | (Non-preemptive)
-public class FCFS_NP
+// Shortest Job First | (Non- preemptive)
+public class SJF_NP
 {
     public decimal AverageWaitingTime { get; set; }
     private List<Tarefa> Tarefas { get; set; }
     private Queue<Tarefa> Fila { get; set; }
     private Tarefa? Current { get; set; }
 
-    public FCFS_NP(List<Tarefa> tarefas)
+    public SJF_NP(List<Tarefa> tarefas)
     {
         Tarefas = tarefas;
         Fila = new();
@@ -45,8 +45,6 @@ public class FCFS_NP
             // Se ja terminou de processar, sai da CPU
             if (Current.CpuTime == Current.BurstTime)
             {
-                Current.CompletionInstant = i + 1;
-                Current.TurnAroundTime = Current.CompletionInstant - Current.ArrivalInstant;
                 Current = null;
             }
         }

@@ -12,7 +12,7 @@ public class FCFS_NP_Tests
         // Arrange
         var tarefas = new List<Tarefa>
         {
-            { new Tarefa { Name = "Play music", ArrivalTime = 0, BurstTime = 4, } },
+            { new Tarefa { Name = "Play music", ArrivalInstant = 0, BurstTime = 4, } },
         };
 
         var scheduler = new FCFS_NP(tarefas);
@@ -22,7 +22,9 @@ public class FCFS_NP_Tests
 
         // Assert
         tarefas[0].WaitingTime.Should().Be(0);
-        tarefas[0].StartTime.Should().Be(0);
+        tarefas[0].StartInstant.Should().Be(0);
+        tarefas[0].CompletionInstant.Should().Be(4);
+        tarefas[0].TurnAroundTime.Should().Be(4);
         //
         scheduler.AverageWaitingTime.Should().Be(0.00M);
         //
@@ -35,8 +37,8 @@ public class FCFS_NP_Tests
         // Arrange
         var tarefas = new List<Tarefa>
         {
-            { new Tarefa { Name = "Play music", ArrivalTime = 0, BurstTime = 4, } },
-            { new Tarefa { Name = "Print PDF", ArrivalTime = 1, BurstTime = 3, } },
+            { new Tarefa { Name = "Play music", ArrivalInstant = 0, BurstTime = 4, } },
+            { new Tarefa { Name = "Print PDF", ArrivalInstant = 1, BurstTime = 3, } },
         };
 
         var scheduler = new FCFS_NP(tarefas);
@@ -46,10 +48,14 @@ public class FCFS_NP_Tests
 
         // Assert
         tarefas[0].WaitingTime.Should().Be(0);
-        tarefas[0].StartTime.Should().Be(0);
+        tarefas[0].StartInstant.Should().Be(0);
+        tarefas[0].CompletionInstant.Should().Be(4);
+        tarefas[0].TurnAroundTime.Should().Be(4);
         //
         tarefas[1].WaitingTime.Should().Be(3);
-        tarefas[1].StartTime.Should().Be(4);
+        tarefas[1].StartInstant.Should().Be(4);
+        tarefas[1].CompletionInstant.Should().Be(7);
+        tarefas[1].TurnAroundTime.Should().Be(6);
         //
         scheduler.AverageWaitingTime.Should().Be(1.50M);
         //
@@ -62,9 +68,9 @@ public class FCFS_NP_Tests
         // Arrange
         var tarefas = new List<Tarefa>
         {
-            { new Tarefa { Name = "Play music", ArrivalTime = 0, BurstTime = 4, } },
-            { new Tarefa { Name = "Print PDF", ArrivalTime = 1, BurstTime = 3, } },
-            { new Tarefa { Name = "Send email", ArrivalTime = 2, BurstTime = 1, } },
+            { new Tarefa { Name = "Play music", ArrivalInstant = 0, BurstTime = 4, } },
+            { new Tarefa { Name = "Print PDF", ArrivalInstant = 1, BurstTime = 3, } },
+            { new Tarefa { Name = "Send email", ArrivalInstant = 2, BurstTime = 1, } },
         };
 
         var scheduler = new FCFS_NP(tarefas);
@@ -74,13 +80,19 @@ public class FCFS_NP_Tests
 
         // Assert
         tarefas[0].WaitingTime.Should().Be(0);
-        tarefas[0].StartTime.Should().Be(0);
+        tarefas[0].StartInstant.Should().Be(0);
+        tarefas[0].CompletionInstant.Should().Be(4);
+        tarefas[0].TurnAroundTime.Should().Be(4);
         //
         tarefas[1].WaitingTime.Should().Be(3);
-        tarefas[1].StartTime.Should().Be(4);
+        tarefas[1].StartInstant.Should().Be(4);
+        tarefas[1].CompletionInstant.Should().Be(7);
+        tarefas[1].TurnAroundTime.Should().Be(6);
         //
         tarefas[2].WaitingTime.Should().Be(5);
-        tarefas[2].StartTime.Should().Be(7);
+        tarefas[2].StartInstant.Should().Be(7);
+        tarefas[2].CompletionInstant.Should().Be(8);
+        tarefas[2].TurnAroundTime.Should().Be(6);
         //
         scheduler.AverageWaitingTime.Should().Be(2.67M);
         //
@@ -93,10 +105,10 @@ public class FCFS_NP_Tests
         // Arrange
         var tarefas = new List<Tarefa>
         {
-            { new Tarefa { Name = "Play music", ArrivalTime = 0, BurstTime = 4, } },
-            { new Tarefa { Name = "Print PDF", ArrivalTime = 1, BurstTime = 3, } },
-            { new Tarefa { Name = "Send email", ArrivalTime = 2, BurstTime = 1, } },
-            { new Tarefa { Name = "Open browser", ArrivalTime = 3, BurstTime = 2, } },
+            { new Tarefa { Name = "Play music", ArrivalInstant = 0, BurstTime = 4, } },
+            { new Tarefa { Name = "Print PDF", ArrivalInstant = 1, BurstTime = 3, } },
+            { new Tarefa { Name = "Send email", ArrivalInstant = 2, BurstTime = 1, } },
+            { new Tarefa { Name = "Open browser", ArrivalInstant = 3, BurstTime = 2, } },
         };
 
         var scheduler = new FCFS_NP(tarefas);
@@ -106,16 +118,24 @@ public class FCFS_NP_Tests
 
         // Assert
         tarefas[0].WaitingTime.Should().Be(0);
-        tarefas[0].StartTime.Should().Be(0);
+        tarefas[0].StartInstant.Should().Be(0);
+        tarefas[0].CompletionInstant.Should().Be(4);
+        tarefas[0].TurnAroundTime.Should().Be(4);
         //
         tarefas[1].WaitingTime.Should().Be(3);
-        tarefas[1].StartTime.Should().Be(4);
+        tarefas[1].StartInstant.Should().Be(4);
+        tarefas[1].CompletionInstant.Should().Be(7);
+        tarefas[1].TurnAroundTime.Should().Be(6);
         //
         tarefas[2].WaitingTime.Should().Be(5);
-        tarefas[2].StartTime.Should().Be(7);
+        tarefas[2].StartInstant.Should().Be(7);
+        tarefas[2].CompletionInstant.Should().Be(8);
+        tarefas[2].TurnAroundTime.Should().Be(6);
         //
         tarefas[3].WaitingTime.Should().Be(5);
-        tarefas[3].StartTime.Should().Be(8);
+        tarefas[3].StartInstant.Should().Be(8);
+        tarefas[3].CompletionInstant.Should().Be(10);
+        tarefas[3].TurnAroundTime.Should().Be(7);
         //
         scheduler.AverageWaitingTime.Should().Be(3.25M);
         //
@@ -128,11 +148,11 @@ public class FCFS_NP_Tests
         // Arrange
         var tarefas = new List<Tarefa>
         {
-            { new Tarefa { Name = "Play music", ArrivalTime = 0, BurstTime = 4, } },
-            { new Tarefa { Name = "Print PDF", ArrivalTime = 1, BurstTime = 3, } },
-            { new Tarefa { Name = "Send email", ArrivalTime = 2, BurstTime = 1, } },
-            { new Tarefa { Name = "Open browser", ArrivalTime = 3, BurstTime = 2, } },
-            { new Tarefa { Name = "Download torrent", ArrivalTime = 4, BurstTime = 5, } },
+            { new Tarefa { Name = "Play music", ArrivalInstant = 0, BurstTime = 4, } },
+            { new Tarefa { Name = "Print PDF", ArrivalInstant = 1, BurstTime = 3, } },
+            { new Tarefa { Name = "Send email", ArrivalInstant = 2, BurstTime = 1, } },
+            { new Tarefa { Name = "Open browser", ArrivalInstant = 3, BurstTime = 2, } },
+            { new Tarefa { Name = "Download torrent", ArrivalInstant = 4, BurstTime = 5, } },
         };
 
         var scheduler = new FCFS_NP(tarefas);
@@ -142,19 +162,29 @@ public class FCFS_NP_Tests
 
         // Assert
         tarefas[0].WaitingTime.Should().Be(0);
-        tarefas[0].StartTime.Should().Be(0);
+        tarefas[0].StartInstant.Should().Be(0);
+        tarefas[0].CompletionInstant.Should().Be(4);
+        tarefas[0].TurnAroundTime.Should().Be(4);
         //
         tarefas[1].WaitingTime.Should().Be(3);
-        tarefas[1].StartTime.Should().Be(4);
+        tarefas[1].StartInstant.Should().Be(4);
+        tarefas[1].CompletionInstant.Should().Be(7);
+        tarefas[1].TurnAroundTime.Should().Be(6);
         //
         tarefas[2].WaitingTime.Should().Be(5);
-        tarefas[2].StartTime.Should().Be(7);
+        tarefas[2].StartInstant.Should().Be(7);
+        tarefas[2].CompletionInstant.Should().Be(8);
+        tarefas[2].TurnAroundTime.Should().Be(6);
         //
         tarefas[3].WaitingTime.Should().Be(5);
-        tarefas[3].StartTime.Should().Be(8);
+        tarefas[3].StartInstant.Should().Be(8);
+        tarefas[3].CompletionInstant.Should().Be(10);
+        tarefas[3].TurnAroundTime.Should().Be(7);
         //
         tarefas[4].WaitingTime.Should().Be(6);
-        tarefas[4].StartTime.Should().Be(10);
+        tarefas[4].StartInstant.Should().Be(10);
+        tarefas[4].CompletionInstant.Should().Be(15);
+        tarefas[4].TurnAroundTime.Should().Be(11);
         //
         scheduler.AverageWaitingTime.Should().Be(3.80M);
         //
