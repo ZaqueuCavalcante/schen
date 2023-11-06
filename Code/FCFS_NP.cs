@@ -29,7 +29,7 @@ public class FCFS_NP
             // Se a CPU ta livre, pega o proximo da fila pra ser executado
             if (Current == null)
             {
-                Current = Fila.Any() ? Fila.Dequeue() : null;
+                Current = Fila.Count != 0 ? Fila.Dequeue() : null;
 
                 if (Current == null) // N tem mais o que processar
                 {

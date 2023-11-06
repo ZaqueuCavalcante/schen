@@ -5,13 +5,13 @@ public class SJF_NP
 {
     public decimal AverageWaitingTime { get; set; }
     private List<Tarefa> Tarefas { get; set; }
-    private Queue<Tarefa> Fila { get; set; }
+    private PriorityQueue<Tarefa, Tarefa> Fila { get; set; }
     private Tarefa? Current { get; set; }
 
     public SJF_NP(List<Tarefa> tarefas)
     {
         Tarefas = tarefas;
-        Fila = new();
+        Fila = new PriorityQueue<Tarefa, Tarefa>(new TaskComparer());
         Current = null;
     }
 
@@ -23,13 +23,13 @@ public class SJF_NP
             var novaTarefa = Tarefas.FirstOrDefault(x => x.ArrivalInstant == i);
             if (novaTarefa != null)
             {
-                Fila.Enqueue(novaTarefa);
+                Fila.Enqueue(novaTarefa, novaTarefa);
             }
 
             // Se a CPU ta livre, pega o proximo da fila pra ser executado
             if (Current == null)
             {
-                Current = Fila.Any() ? Fila.Dequeue() : null;
+                Current = Fila.Count != 0 ? Fila.Dequeue() : null;
 
                 if (Current == null) // N tem mais o que processar
                 {
@@ -45,6 +45,8 @@ public class SJF_NP
             // Se ja terminou de processar, sai da CPU
             if (Current.CpuTime == Current.BurstTime)
             {
+                Current.CompletionInstant = i + 1;
+                Current.TurnAroundTime = Current.CompletionInstant - Current.ArrivalInstant;
                 Current = null;
             }
         }

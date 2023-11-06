@@ -190,4 +190,53 @@ public class FCFS_NP_Tests
         //
         tarefas.ForEach(x => x.CpuTime.Should().Be(x.BurstTime));
     }
+
+    [Test]
+    public void FCFS_NP_Tests_05()
+    {
+        // Arrange
+        var tarefas = new List<Tarefa>
+        {
+            { new Tarefa { Name = "Play music", ArrivalInstant = 2, BurstTime = 6, } },
+            { new Tarefa { Name = "Print PDF", ArrivalInstant = 5, BurstTime = 2, } },
+            { new Tarefa { Name = "Send email", ArrivalInstant = 1, BurstTime = 8, } },
+            { new Tarefa { Name = "Open browser", ArrivalInstant = 0, BurstTime = 3, } },
+            { new Tarefa { Name = "Download torrent", ArrivalInstant = 4, BurstTime = 4, } },
+        };
+
+        var scheduler = new FCFS_NP(tarefas);
+
+        // Act
+        scheduler.Run();
+
+        // Assert
+        tarefas[3].WaitingTime.Should().Be(0);
+        tarefas[3].StartInstant.Should().Be(0);
+        tarefas[3].CompletionInstant.Should().Be(3);
+        tarefas[3].TurnAroundTime.Should().Be(3);
+        //
+        tarefas[2].WaitingTime.Should().Be(2);
+        tarefas[2].StartInstant.Should().Be(3);
+        tarefas[2].CompletionInstant.Should().Be(11);
+        tarefas[2].TurnAroundTime.Should().Be(10);
+        //
+        tarefas[0].WaitingTime.Should().Be(9);
+        tarefas[0].StartInstant.Should().Be(11);
+        tarefas[0].CompletionInstant.Should().Be(17);
+        tarefas[0].TurnAroundTime.Should().Be(15);
+        //
+        tarefas[4].WaitingTime.Should().Be(13);
+        tarefas[4].StartInstant.Should().Be(17);
+        tarefas[4].CompletionInstant.Should().Be(21);
+        tarefas[4].TurnAroundTime.Should().Be(17);
+        //
+        tarefas[1].WaitingTime.Should().Be(16);
+        tarefas[1].StartInstant.Should().Be(21);
+        tarefas[1].CompletionInstant.Should().Be(23);
+        tarefas[1].TurnAroundTime.Should().Be(18);
+        //
+        scheduler.AverageWaitingTime.Should().Be(8.00M);
+        //
+        tarefas.ForEach(x => x.CpuTime.Should().Be(x.BurstTime));
+    }
 }
